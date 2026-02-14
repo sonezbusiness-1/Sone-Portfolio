@@ -9,17 +9,49 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="icon" type="image/png" href="assets/images/logo.png"> <!-- Added for icons -->
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header data-aos="fade-down"
-    data-aos-easing="linear"
-    data-aos-duration="1500">
+    <div class="body-bg-video-wrapper">
+      <video autoplay muted loop playsinline class="body-bg-video">
+        <source src="assets/video/bg-video1.mp4" type="video/mp4">
+      </video>
+      <div class="body-bg-overlay"></div>
+    </div>
+
+    <header id="mainHeader">
+    <div class="header-inner">
         <div class="logo">SONEZ</div>
-        <button class="contact-btn">Contact</button>
+        
+        <nav class="main-nav">
+          <section id="hero">
+            <a href="#hero" class="nav-link">Home</a>
+          </section>
+          <section id="about">  
+            <a href="#about" class="nav-link">About Me</a>
+          </section>
+          <section id="projects">  
+            <a href="#projects" class="nav-link">Projects</a>
+          </section>
+          <section id="packages"> 
+            <a href="#packages" class="nav-link">My System</a>
+          </section>  
+        </nav>
+
+        <button class="contact-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+    </div>
     </header>
 
+  
+
     <main>
+        <div class="wireframe-background">
+          <video id="bgVideo" autoplay muted loop playsinline>
+            <source src="assets/video/bg-video.mp4" type="video/mp4">
+          </video>
+          <div class="yt-overlay"></div>
+        </div>
         <div class="title-section" data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500">
@@ -41,14 +73,158 @@
 
         <div class="scroll-down" data-aos="fade-up"
         data-aos-duration="1500"></div>
-
-        <spline-viewer data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="300"
-            data-aos-offset="0" data-aos-duration="3000" class="planet-3D"  url="https://prod.spline.design/o1jbUMp5IxcR2iyr/scene.splinecode">
-        </spline-viewer>
-
     </main>
+
+    <section class="tech-skills-section" id="skills"> 
+    <div class="tech-skills-inner">
+        <h2 class="tech-skills-title">Technologies</h2>
+        
+        <div class="tech-grid" id="techGrid">
+
+            <!-- JavaScript -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon js-icon">
+                        <i class="fa-brands fa-js"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>JavaScript</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="85"></div>
+                </div>
+                <span class="progress-percent">85%</span>
+            </div>
+
+            <!-- React -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon react-icon">
+                        <i class="fa-brands fa-react"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>React</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="72"></div>
+                </div>
+                <span class="progress-percent">72%</span>
+            </div>
+
+            <!-- Node.js -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon node-icon">
+                        <i class="fa-brands fa-node-js"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>Node.js</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="65"></div>
+                </div>
+                <span class="progress-percent">65%</span>
+            </div>
+
+            <!-- HTML5 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon html-icon">
+                        <i class="fa-brands fa-html5"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>HTML5</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="100"></div>
+                </div>
+                <span class="progress-percent">100%</span>
+            </div>
+
+            <!-- CSS3 -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon css-icon">
+                        <i class="fa-brands fa-css3-alt"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>CSS3</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="100"></div>
+                </div>
+                <span class="progress-percent">100%</span>
+            </div>
+
+            <!-- Python -->
+            <div class="tech-card">
+                <div class="tech-card-header">
+                    <div class="tech-icon py-icon">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>Python</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="55"></div>
+                </div>
+                <span class="progress-percent">55%</span>
+            </div>
+
+            <!-- PHP -->
+            <div class="tech-card hidden-tech">
+                <div class="tech-card-header">
+                    <div class="tech-icon php-icon">
+                        <i class="fa-brands fa-php"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>PHP</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="60"></div>
+                </div>
+                <span class="progress-percent">60%</span>
+            </div>
+
+            <!-- MySQL -->
+            <div class="tech-card hidden-tech">
+                <div class="tech-card-header">
+                    <div class="tech-icon mysql-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h3>MySQL</h3>
+                        <span>Experience Level</span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" data-width="70"></div>
+                </div>
+                <span class="progress-percent">70%</span>
+            </div>
+        </div>
+
+        <button class="show-more-btn" id="showMoreBtn" onclick="toggleTechCards()">
+            Show More <span class="chevron">▾</span>
+        </button>
+    </div>
+</section>
+
+
 
     <section class="about-section">
         <h1 class="about-title" data-aos="fade-down"
@@ -67,7 +243,7 @@
                     <p>I started web development less than a year ago and I'm currently focused on learning and building my skills.</p>
         
                     <h3>Learning Approach</h3>
-                    <p>I'm honest about my current learning process - I use about 75% AI assistance and 25% of my own coding knowledge.</p>
+                    <p>I'm honest about my current learning process </p>
                 
                     <h3>What I'm Working On</h3>
                     <p>Personal website development</p>
@@ -295,6 +471,7 @@
           <source src="assets/video/qr-basic.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        
       </div>
 
       
@@ -901,7 +1078,7 @@
     <script type="text/javascript">
     (function(){
        emailjs.init({
-        publicKey: "lg0B5Gsk-dku1HQt9", // EmailJS account එකේ public key එක
+        publicKey: "lg0B5Gsk-dku1HQt9",
      });
    })();
     </script>
@@ -917,8 +1094,7 @@
     AOS.init();
     </script>
 
+    <script src="style.css"></script>
     <script src="app.js"></script>
 </body>
 </html>
-
-
