@@ -1,3 +1,5 @@
+
+
 // Spotlight effect
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('mousemove', e => {
@@ -1005,6 +1007,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// ===========================================
+// NAV SCROLL
+// ===========================================
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault(); // stop default jump
+
+        const targetId = this.getAttribute('href').replace('#', '');
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
 
 
 // ============================================
@@ -1022,7 +1044,6 @@ function scrollToContact() {
   }
 }
 
-// CONTACT ME button in bento card - open email client with devilw985@gmail.com
 // CONTACT ME button - open Gmail compose directly
 function openEmailClient() {
   const email = 'devilw985@gmail.com';
@@ -1123,3 +1144,65 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ── PROGRESS BAR ANIMATION ────────────────────────
+function animateProgressBars() {
+    const bars = document.querySelectorAll('.progress-bar');
+    bars.forEach(bar => {
+        const target = bar.getAttribute('data-width');
+        bar.style.width = target + '%';
+    });
+}
+
+// Intersection Observer - viewport ට ආවාම animate
+const techSection = document.querySelector('.tech-skills-section');
+if (techSection) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateProgressBars();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    observer.observe(techSection);
+}
+
+
+// ── SHOW MORE / LESS TOGGLE ───────────────────────
+function toggleTechCards() {
+    const hiddenCards = document.querySelectorAll('.tech-card.hidden-tech');
+    const btn = document.getElementById('showMoreBtn');
+    const chevron = btn.querySelector('.chevron');
+    const isHidden = hiddenCards[0].style.display === 'none' || hiddenCards[0].style.display === '';
+
+    hiddenCards.forEach(card => {
+        card.style.display = isHidden ? 'block' : 'none';
+    });
+
+    btn.innerHTML = isHidden
+        ? 'Show Less <span class="chevron rotated">▾</span>'
+        : 'Show More <span class="chevron">▾</span>';
+
+    // Newly shown cards animate
+    if (isHidden) {
+        setTimeout(animateProgressBars, 50);
+    }
+}
+
+
+// ── ACTIVE NAV LINK on SCROLL ─────────────────────
+const sections = document.querySelectorAll('section[id], main[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            navLinks.forEach(link => link.classList.remove('is-active'));
+            const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('is-active');
+        }
+    });
+}, { threshold: 0.4 });
+
+sections.forEach(sec => navObserver.observe(sec));
