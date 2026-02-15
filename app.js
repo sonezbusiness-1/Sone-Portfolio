@@ -1,4 +1,113 @@
+// =====================================================
+// INTRO LOADER SCRIPT
+// =====================================================
 
+(function () {
+
+    const loader     = document.getElementById('introLoader');
+    const bar        = document.getElementById('loaderBar');
+    const percent    = document.getElementById('loaderPercent');
+
+    if (!loader) return;  // no loader  skip
+
+    // ── Scroll lock ─────────────────────────────────
+    document.body.style.overflow = 'hidden';
+
+    // ── Progress tracking ────────────────────────────
+    let progress = 0;
+    let heroReady = false;
+    let bodyReady = false;
+
+    function setProgress(val) {
+        progress = Math.min(val, 100);
+        bar.style.width = progress + '%';
+        percent.textContent = Math.round(progress) + '%';
+        if (progress > 5) bar.classList.add('active');
+    }
+
+    // Smooth animated progress (simulated for feel)
+    let currentProgress = 0;
+    const progressInterval = setInterval(() => {
+        // videos ready වෙනකන් 85% දක්වා slow progress
+        const target = (heroReady && bodyReady) ? 100 : 85;
+        if (currentProgress < target) {
+            const speed = currentProgress < 40 ? 1.2 :
+                          currentProgress < 70 ? 0.6 : 0.2;
+            currentProgress = Math.min(currentProgress + speed, target);
+            setProgress(currentProgress);
+        }
+    }, 30);
+
+    // ── Hide loader ──────────────────────────────────
+    function hideLoader() {
+        clearInterval(progressInterval);
+        setProgress(100);
+
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 400);
+
+        // DOM ඉවත් කිරීම (memory save)
+        setTimeout(() => loader.remove(), 1500);
+    }
+
+    // ── Check both videos ready ──────────────────────
+    function checkAllReady() {
+        if (heroReady && bodyReady) {
+            currentProgress = 100;
+            setTimeout(hideLoader, 300);
+        }
+    }
+
+    // ── Hero section video (#bgVideo) ────────────────
+    const heroVideo = document.getElementById('bgVideo');
+
+    if (heroVideo) {
+        if (heroVideo.readyState >= 3) {  // already ready
+            heroReady = true;
+        } else {
+            heroVideo.addEventListener('canplay', function onHeroReady() {
+                heroReady = true;
+                heroVideo.removeEventListener('canplay', onHeroReady);
+                checkAllReady();
+            }, { once: true });
+        }
+    } else {
+        heroReady = true;  // video නෑ නම් ready
+    }
+
+    // ── Body background video (.body-bg-video) ───────
+    const bodyVideo = document.querySelector('.body-bg-video');
+
+    if (bodyVideo) {
+        if (bodyVideo.readyState >= 3) {
+            bodyReady = true;
+        } else {
+            bodyVideo.addEventListener('canplay', function onBodyReady() {
+                bodyReady = true;
+                bodyVideo.removeEventListener('canplay', onBodyReady);
+                checkAllReady();
+            }, { once: true });
+        }
+    } else {
+        bodyReady = true;  // video නෑ නම් ready
+    }
+
+    // Initial check (both already ready case)
+    checkAllReady();
+
+    // ── Fallback: max 8 seconds ──────────────────────
+    // Videos load නොවුනත් 8s කින් loader hide කරයි
+    setTimeout(() => {
+        if (!loader.classList.contains('hidden')) {
+            heroReady = true;
+            bodyReady = true;
+            hideLoader();
+        }
+    }, 8000);
+
+})();
 
 // Spotlight effect
 document.querySelectorAll('.card').forEach(card => {
@@ -1007,42 +1116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// ===========================================
-// NAV SCROLL
-// ===========================================
 
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault(); // stop default jump
-
-        const targetId = this.getAttribute('href').replace('#', '');
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-
-
-// ============================================
-// CONTACT FUNCTIONS
-// ============================================
-
-// Header Contact button - scroll to Send Message section
-function scrollToContact() {
-  const contactSection = document.getElementById('contactSection');
-  if (contactSection) {
-    contactSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
 
 // CONTACT ME button - open Gmail compose directly
 function openEmailClient() {
@@ -1206,3 +1280,80 @@ const navObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 
 sections.forEach(sec => navObserver.observe(sec));
+
+// ============================================
+// HAMBURGER MENU 
+// ============================================
+
+(function() {
+
+    // Backdrop create
+    const backdrop = document.createElement('div');
+    backdrop.className = 'nav-backdrop';
+    document.body.appendChild(backdrop);
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mainNav      = document.getElementById('mainNav');
+
+    if (!hamburgerBtn || !mainNav) return;
+
+    function openMenu() {
+        hamburgerBtn.classList.add('active');
+        mainNav.classList.add('open');
+        backdrop.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => backdrop.classList.add('visible'), 10);
+    }
+
+    function closeMenu() {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('open');
+        backdrop.classList.remove('visible');
+        document.body.style.overflow = '';
+        setTimeout(() => backdrop.style.display = 'none', 400);
+    }
+
+    // Hamburger click
+    hamburgerBtn.addEventListener('click', () => {
+        mainNav.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    // Backdrop click = close
+    backdrop.addEventListener('click', closeMenu);
+
+    // Nav link click = close + smooth scroll
+    mainNav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            closeMenu();
+        });
+    });
+
+    // Escape key = close
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+})();
+
+function copyPhone() {
+    navigator.clipboard.writeText('+94 704 483 130').then(() => {
+        // Toast notification show
+        let toast = document.getElementById('copyToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'copyToast';
+            toast.className = 'copy-toast';
+            toast.textContent = '✓ Number copied!';
+            document.body.appendChild(toast);
+        }
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    });
+}
+
+function openGmail(e) {
+    e.preventDefault();
+    const email = 'sonezbusiness@gmail.com';
+    const gmailUrl = 'https://mail.google.com/mail/?view=cm&to=' + email;
+    window.open(gmailUrl, '_blank');
+}
