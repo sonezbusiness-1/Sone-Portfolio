@@ -13,6 +13,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <div id="introLoader" class="intro-loader">
+
+  <!-- Animated background grid -->
+  <div class="loader-grid"></div>
+
+  <!-- Scan line effect -->
+  <div class="scan-line"></div>
+
+  <!-- Center content -->
+  <div class="loader-center">
+
+    <!-- Logo / Name -->
+    <div class="loader-name">
+      <span class="loader-letter" style="--i:0">S</span>
+      <span class="loader-letter" style="--i:1">O</span>
+      <span class="loader-letter" style="--i:2">N</span>
+      <span class="loader-letter" style="--i:3">E</span>
+      <span class="loader-letter" style="--i:4">Z</span>
+    </div>
+
+    <!-- Tagline -->
+    <p class="loader-tagline">Portfolio · Loading</p>
+
+    <!-- Progress bar -->
+    <div class="loader-bar-wrap">
+      <div class="loader-bar" id="loaderBar"></div>
+      <div class="loader-bar-glow"></div>
+    </div>
+
+    <!-- Percent -->
+    <span class="loader-percent" id="loaderPercent">0%</span>
+
+  </div>
+
+  <!-- Corner decorations -->
+  <div class="corner top-left"></div>
+  <div class="corner top-right"></div>
+  <div class="corner bottom-left"></div>
+  <div class="corner bottom-right"></div>
+
+</div>
+
     <div class="body-bg-video-wrapper">
       <video autoplay muted loop playsinline class="body-bg-video">
         <source src="assets/video/bg-video1.mp4" type="video/mp4">
@@ -22,18 +64,23 @@
 
     <header id="mainHeader">
     <div class="header-inner">
-        <div class="logo">SONEZ</div>
-        
-        <nav class="main-nav">
-          <a href="#hero" class="nav-link">Home</a>
-          <a href="#about" class="nav-link">About Me</a>
-          <a href="#projects" class="nav-link">Projects</a>
-          <a href="#packages" class="nav-link">My System</a>
-        </nav>
+    <div class="logo">SONEZ</div>
 
-        <button class="contact-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
-    </div>
-    </header>
+    <nav class="main-nav" id="mainNav">
+        <a href="#hero"     class="nav-link">Home</a>
+        <a href="#about"    class="nav-link">About Me</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#packages" class="nav-link">My System</a>
+        <a href="#contact"  class="nav-link">Contact</a>
+    </nav>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+  </div>
+  </header>
 
   
 
@@ -57,7 +104,7 @@
         <div class="bio-section" data-aos="fade-up"
         data-aos-duration="1500">
             <p class="bio">                
-                WITH <span style="color: #76b0ab;"> OVER ONE YEARS </span> OF REFINED EXPERTISE
+                WITH <span style="color: #76b0ab;"> OVER FIVE MONTHS </span> OF REFINED EXPERTISE
                 THIS DESIGNER HAS METICULOUSLY CRAFTED
                 SEAMLESS AND INTUITIVE <span style="color: #842626;"> USER EXPERIENCES.</span>
             </p>
@@ -973,7 +1020,7 @@
 </div>
 
     <!-- CONTACT SECTION -->
-     <section class="contact-section" id="contactSection">
+     <section class="contact-section" id="contact">
         <div class="section-header" data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500">
@@ -991,12 +1038,15 @@
 
                 <div class="contact-item">
                     <p>Email</p>
-                    <a href="#">sonezbusiness@gmail.com</a>
+                    <a href="#" onclick="openGmail(event)">sonezbusiness@gmail.com</a>
                 </div>
 
                 <div class="contact-item">
                     <p>Phone</p>
-                    <a href="#">+94 704 483 130</a>
+                    <span class="copy-phone" onclick="copyPhone()" title="Click to copy">
+                      +94 704 483 130
+                      <span class="copy-hint">📋</span>
+                    </span>
                 </div>
 
                 <div class="contact-item">
@@ -1090,4 +1140,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
