@@ -25,18 +25,10 @@
         <div class="logo">SONEZ</div>
         
         <nav class="main-nav">
-          <section id="hero">
-            <a href="#hero" class="nav-link">Home</a>
-          </section>
-          <section id="about">  
-            <a href="#about" class="nav-link">About Me</a>
-          </section>
-          <section id="projects">  
-            <a href="#projects" class="nav-link">Projects</a>
-          </section>
-          <section id="packages"> 
-            <a href="#packages" class="nav-link">My System</a>
-          </section>  
+          <a href="#hero" class="nav-link">Home</a>
+          <a href="#about" class="nav-link">About Me</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#packages" class="nav-link">My System</a>
         </nav>
 
         <button class="contact-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
@@ -45,7 +37,7 @@
 
   
 
-    <main>
+    <main id="hero">
         <div class="wireframe-background">
           <video id="bgVideo" autoplay muted loop playsinline>
             <source src="assets/video/bg-video.mp4" type="video/mp4">
@@ -65,7 +57,7 @@
         <div class="bio-section" data-aos="fade-up"
         data-aos-duration="1500">
             <p class="bio">                
-                WITH <span style="color: #76b0ab;"> OVER ONE YEARS </span> OF REFINED EXPERTISE
+                WITH <span style="color: #76b0ab;"> OVER FIVE MONTHS </span> OF REFINED EXPERTISE
                 THIS DESIGNER HAS METICULOUSLY CRAFTED
                 SEAMLESS AND INTUITIVE <span style="color: #842626;"> USER EXPERIENCES.</span>
             </p>
@@ -226,7 +218,7 @@
 
 
 
-    <section class="about-section">
+    <section class="about-section" id="about">
         <h1 class="about-title" data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500">About Me</h1>
@@ -326,7 +318,7 @@
 
 
     <!-- PROJECTS SECTION --> 
-<section class="my-projects">
+<section class="my-projects" id="projects">
   <h2>Things I Create</h2>
 
   <div class="projects-grid">
@@ -361,7 +353,7 @@
 
 
     <!-- QR SYSTEM PACKAGES-->
-<section class="packages-section">
+<section class="packages-section" id="packages">
   <h2 class="section-title">QR Code Scan System</h2>
 
   <div class="packages-grid">
@@ -1098,4 +1090,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
