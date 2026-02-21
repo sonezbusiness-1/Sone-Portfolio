@@ -393,7 +393,7 @@ document.head.appendChild(style);
   const packagePrices = {
     Basic: 100.00,      // Includes Pay After $50
     Premium: 300.00,    // Can be Pay After $50 or Pay Now $250
-    Pro: 500.00        // Can be Pay After $50 or Pay Now $250
+    Pro: 800.00        // Can be Pay After $50 or Pay Now $250
   };
   
   // Receipt charge breakdown (for display only)
@@ -1357,4 +1357,5 @@ function openGmail(e) {
     const gmailUrl = 'https://mail.google.com/mail/?view=cm&to=' + email;
     window.open(gmailUrl, '_blank');
 }
+
 
