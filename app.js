@@ -966,7 +966,7 @@ function sendOrderEmail(data, submitBtn, btnText, btnLoading) {
     order_date: new Date().toLocaleString()
   };
   
-  emailjs.send('service_najgbhk', 'template_fop2dpi', templateParams)
+emailjs.send('service_najgbhk', 'template_r87h59e', templateParams)
   .then(function(response) {
     console.log('✅ Email sent!', response.status);
     
@@ -1357,6 +1357,7 @@ function openGmail(e) {
     const gmailUrl = 'https://mail.google.com/mail/?view=cm&to=' + email;
     window.open(gmailUrl, '_blank');
 }
+
 
 
 
