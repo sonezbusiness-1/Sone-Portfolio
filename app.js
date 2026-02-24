@@ -1158,7 +1158,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Try to send via EmailJS first
       if (typeof emailjs !== 'undefined') {
         // EmailJS send - will arrive at sonezbusiness@gmail.com
-        emailjs.sendForm('service_a1ixihw', 'template_u60dvel', mainContactForm)
+        emailjs.sendForm('service_3h8vv1l', 'template_e0tqthj', mainContactForm)
           .then(function(response) {
             console.log('✅ Email sent successfully!', response.status);
             
@@ -1357,5 +1357,6 @@ function openGmail(e) {
     const gmailUrl = 'https://mail.google.com/mail/?view=cm&to=' + email;
     window.open(gmailUrl, '_blank');
 }
+
 
 
