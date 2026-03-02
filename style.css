@@ -1480,8 +1480,9 @@ main h2 {
 .contact-item a:hover { color: #7ce9e6; }
 .social-link { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; }
 .social-link p { margin-bottom: 15px; color: #7ce9e6; font-weight: 600; }
-.social-link a { display: inline-block; margin-right: 15px; color: lightgray; text-decoration: none; padding: 8px 15px; background-color: #2d2d2d; border-radius: 6px; transition: all 0.2s; }
-.social-link a:hover { background-color: #7ce9e6; color: lightgray; }
+.social-link { display: flex; flex-direction: column; }
+.social-link a { text-decoration: none; color: lightgray; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; text-align: center; transition: 0.3s ease; border: 1px solid rgba(255,255,255,0.1); }
+.social-link a:hover { background: #7ce9e6; color: #111; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(124,233,230,0.4); }
 
 .form-control { width: 100%; padding: 12px 15px; background-color: #2d2d2d; border-radius: 8px; color: lightgray; font-size: 16px; transition: border-color 0.3s; border: 1px solid #333; }
 .form-control:focus { outline: none; border-color: #7ce9e6; }
@@ -1899,3 +1900,4 @@ footer {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+
