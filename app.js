@@ -1282,12 +1282,11 @@ const navObserver = new IntersectionObserver((entries) => {
 sections.forEach(sec => navObserver.observe(sec));
 
 // ============================================
-// HAMBURGER MENU 
+// HAMBURGER MENU - MOBILE SCROLL FIX v2
 // ============================================
 
 (function() {
 
-    // Backdrop create
     const backdrop = document.createElement('div');
     backdrop.className = 'nav-backdrop';
     document.body.appendChild(backdrop);
@@ -1297,11 +1296,31 @@ sections.forEach(sec => navObserver.observe(sec));
 
     if (!hamburgerBtn || !mainNav) return;
 
+    // Lock scroll when menu open
+    function lockScroll() {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+    }
+
+    // Unlock scroll - CRITICAL for mobile
+    function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.height = '';
+    document.documentElement.style.overflow = '';
+    
+    // Mobile Safari fix
+    document.body.style.touchAction = '';
+    document.body.style.webkitOverflowScrolling = '';
+    }
+
     function openMenu() {
         hamburgerBtn.classList.add('active');
         mainNav.classList.add('open');
         backdrop.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        lockScroll();
         setTimeout(() => backdrop.classList.add('visible'), 10);
     }
 
@@ -1309,28 +1328,62 @@ sections.forEach(sec => navObserver.observe(sec));
         hamburgerBtn.classList.remove('active');
         mainNav.classList.remove('open');
         backdrop.classList.remove('visible');
-        document.body.style.overflow = '';
+        unlockScroll();  // Unlock immediately
         setTimeout(() => backdrop.style.display = 'none', 400);
     }
 
-    // Hamburger click
+    // Toggle
     hamburgerBtn.addEventListener('click', () => {
         mainNav.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    // Backdrop click = close
     backdrop.addEventListener('click', closeMenu);
 
-    // Nav link click = close + smooth scroll
-    mainNav.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            closeMenu();
-        });
-    });
-
-    // Escape key = close
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeMenu();
+    });
+
+    // ── NAV LINKS - Mobile scroll fix ──────────────
+    mainNav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const href = this.getAttribute('href');
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (!targetElement) {
+                console.error('Section not found:', targetId);
+                closeMenu();
+                return;
+            }
+
+            // Step 1: Force unlock scroll FIRST
+            unlockScroll();
+
+            // Step 2: Close menu UI
+            hamburgerBtn.classList.remove('active');
+            mainNav.classList.remove('open');
+            backdrop.classList.remove('visible');
+
+            // Step 3: Wait for menu to close, then scroll
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+                
+                // Mobile-friendly scroll
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                console.log('Scrolled to:', targetId);
+            }, 500);  // 500ms = menu animation complete
+        });
     });
 
 })();
@@ -1357,6 +1410,7 @@ function openGmail(e) {
     const gmailUrl = 'https://mail.google.com/mail/?view=cm&to=' + email;
     window.open(gmailUrl, '_blank');
 }
+
 
 
 
