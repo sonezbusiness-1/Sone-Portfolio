@@ -966,7 +966,7 @@ function sendOrderEmail(data, submitBtn, btnText, btnLoading) {
     order_date: new Date().toLocaleString()
   };
   
-emailjs.send('service_najgbhk', 'template_r87h59e', templateParams)
+emailjs.send('service_shnbog4', 'template_r87h59e', templateParams)
   .then(function(response) {
     console.log('✅ Email sent!', response.status);
     
