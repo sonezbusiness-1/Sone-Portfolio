@@ -1158,7 +1158,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Try to send via EmailJS first
       if (typeof emailjs !== 'undefined') {
         // EmailJS send - will arrive at sonezbusiness@gmail.com
-        emailjs.sendForm('service_3h8vv1l', 'template_51ih4oq', mainContactForm)
+        emailjs.sendForm('service_shnbog4', 'template_2vxh3zr', mainContactForm)
           .then(function(response) {
             console.log('✅ Email sent successfully!', response.status);
             
