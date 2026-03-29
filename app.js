@@ -126,6 +126,120 @@ document.querySelectorAll('.card').forEach(card => {
   });
 });
 
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeUp = document.getElementById("volumeUp");
+const volumeDown = document.getElementById("volumeDown");
+
+let isPlaying = false;
+let userBaseVolume = 0.4; // default volume
+
+bgMusic.volume = userBaseVolume;
+
+// Play / Pause
+musicToggle.addEventListener("click", async () => {
+  if (!isPlaying) {
+    try {
+      await bgMusic.play();
+      isPlaying = true;
+      musicToggle.textContent = "Pause Music";
+    } catch (error) {
+      console.log("Autoplay blocked until user interacts:", error);
+    }
+  } else {
+    bgMusic.pause();
+    isPlaying = false;
+    musicToggle.textContent = "Play Music";
+  }
+});
+
+// Slider volume control
+volumeSlider.addEventListener("input", () => {
+  userBaseVolume = volumeSlider.value / 100;
+  bgMusic.volume = userBaseVolume;
+});
+
+// Volume up
+volumeUp.addEventListener("click", () => {
+  userBaseVolume = Math.min(userBaseVolume + 0.1, 1);
+  bgMusic.volume = userBaseVolume;
+  volumeSlider.value = Math.round(userBaseVolume * 100);
+});
+
+// Volume down
+volumeDown.addEventListener("click", () => {
+  userBaseVolume = Math.max(userBaseVolume - 0.1, 0);
+  bgMusic.volume = userBaseVolume;
+  volumeSlider.value = Math.round(userBaseVolume * 100);
+});
+
+// Scroll-based soft volume reduction near footer
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+  if (docHeight <= 0) return;
+
+  const scrollPercent = scrollTop / docHeight;
+
+  // top section = full chosen volume
+  // bottom section = reduced volume
+  if (scrollPercent > 0.75) {
+    const reduceAmount = (scrollPercent - 0.75) / 0.25; 
+    const reducedVolume = userBaseVolume * (1 - 0.7 * reduceAmount);
+    bgMusic.volume = Math.max(reducedVolume, 0.08);
+  } else {
+    bgMusic.volume = userBaseVolume;
+  }
+});
+
+//Animated Stats
+const statsSection = document.querySelector("#stats2");
+const counters = document.querySelectorAll(".stat-number2");
+let counted = false;
+
+function runCounter() {
+  counters.forEach((counter) => {
+    const target = parseInt(counter.getAttribute("data-target"));
+    const suffix = counter.getAttribute("data-suffix") || "";
+    const duration = 1400; // 1.4 seconds
+    const startTime = performance.now();
+
+    function updateCounter(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.floor(easeOut * target);
+
+      counter.textContent = currentValue + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = target + suffix;
+      }
+    }
+
+    requestAnimationFrame(updateCounter);
+  });
+}
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !counted) {
+        counted = true;
+        runCounter();
+      }
+    });
+  },
+  { threshold: 0.35 }
+);
+
+observer.observe(statsSection);
+
 // Projects
 function openProject(id) {
   window.open(`projects/${id}ecommerce/index.html`, "_blank");
