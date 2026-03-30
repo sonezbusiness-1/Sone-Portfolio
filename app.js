@@ -1395,6 +1395,26 @@ const navObserver = new IntersectionObserver((entries) => {
 
 sections.forEach(sec => navObserver.observe(sec));
 
+
+// ============================================
+// WHATSAPP BUTTON SCROLL
+// ============================================
+const whatsappBtn = document.getElementById("whatsappBtn");
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  // Hero section height (adjust if needed)
+  const triggerPoint = window.innerHeight * 0.7;
+
+  if (scrollY > triggerPoint) {
+    whatsappBtn.classList.add("show");
+  } else {
+    whatsappBtn.classList.remove("show");
+  }
+});
+
+
 // ============================================
 // HAMBURGER MENU - MOBILE SCROLL FIX v2
 // ============================================
