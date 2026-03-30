@@ -1798,6 +1798,47 @@ footer {
 .box-icons a { color: lightgray; font-size: 2rem; transition: color 0.5s; }
 .box-icons a:hover { color: #7ce9e6; }
 
+
+/* ============================================
+   WHATSAPP BUTTON
+   ============================================ */  
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 210px;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+  z-index: 9999;
+
+  opacity: 0;
+  transform: translateY(40px) scale(0.8);
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.whatsapp-float img {
+  width: 32px;
+  height: 32px;
+}
+
+.whatsapp-float.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.9);
+}
+
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
