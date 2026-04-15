@@ -82,15 +82,7 @@
   </div>
   </header>
 
-  
-
     <main id="hero">
-        <div class="wireframe-background">
-          <video id="bgVideo" autoplay muted loop playsinline>
-            <source src="assets/video/bg-video.mp4" type="video/mp4">
-          </video>
-          <div class="yt-overlay"></div>
-        </div>
         <div class="title-section" data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500">
@@ -101,10 +93,97 @@
             </div>
         </div>
 
+       <section class="hero-center" id="heroCenter">
+  <div class="storm-overlay" id="stormOverlay">
+    <div class="bolt bolt-1"></div>
+    <div class="bolt bolt-2"></div>
+    <div class="bolt bolt-3"></div>
+  </div>
+
+  <div class="system" id="system">
+    <div class="rotator" id="rotator">
+
+      <div class="arm a1">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="Python">
+          <img src="./assets/images/coding_logo/python.png" alt="Python">
+        </div>
+      </div>
+
+      <div class="arm a2">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="JavaScript">
+          <img src="./assets/images/coding_logo/js.png" alt="JavaScript">
+        </div>
+      </div>
+
+      <div class="arm a3">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="React">
+          <img src="./assets/images/coding_logo/react.png" alt="React">
+        </div>
+      </div>
+
+      <div class="arm a4">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="HTML">
+          <img src="./assets/images/coding_logo/html.png" alt="HTML">
+        </div>
+      </div>
+
+      <div class="arm a5">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="CSS">
+          <img src="./assets/images/coding_logo/css-3.png" alt="CSS">
+        </div>
+      </div>
+
+      <div class="arm a6">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="PHP">
+          <img src="./assets/images/coding_logo/php.png" alt="PHP">
+        </div>
+      </div>
+
+      <div class="arm a7">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="Git">
+          <img src="./assets/images/coding_logo/git.png" alt="Git">
+        </div>
+      </div>
+
+      <div class="arm a8">
+        <div class="spoke"></div>
+        <div class="logo-node" data-name="Node.js">
+          <img src="./assets/images/coding_logo/nodejs.png" alt="Node.js">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-box" id="photoBox">
+      <div class="smoke-wrap">
+        <div class="smoke s1"></div>
+        <div class="smoke s2"></div>
+        <div class="smoke s3"></div>
+      </div>
+
+      <img src="./assets/images/my-photo.png" class="photo normal" alt="My Photo">
+      <img src="./assets/images/my-photo-glow.png" class="photo glow" alt="Glow Photo">
+    </div>
+
+    <audio id="lightningSound" loop>
+      <source src="./assets/music/lighting1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="label" id="label"></div>
+  </div>
+</section>
+
         <div class="bio-section" data-aos="fade-up"
         data-aos-duration="1500">
             <p class="bio">                
-                WITH <span style="color: #76b0ab;"> OVER ONE YEARS </span> OF REFINED EXPERTISE
+                WITH <span style="color: #76b0ab;"> OVER TWO YEARS </span> OF REFINED EXPERTISE
                 THIS DESIGNER HAS METICULOUSLY CRAFTED
                 SEAMLESS AND INTUITIVE <span style="color: #842626;"> USER EXPERIENCES.</span>
             </p>
@@ -288,10 +367,10 @@
             data-aos-easing="ease-in-sine" data-aos-duration="1500">
                 <h2 class="card-title">HI THERE, I'M SONEZ</h2>
                 <div class="card-text">
-                    <p>I'm Sadeepa Sithumina Amarasiriwardhana, an A/L student from Kurunegala District, Sri Lanka.</p>
+                    <p>I'm Sadeepa Sithumina Amarasiriwardhana, an A/L student from Kurunegala District, Sri Lanka. And I am a freelancer in video editing. </p>
         
                     <h3>My Journey</h3>
-                    <p>I started web development less than a year ago and I'm currently focused on learning and building my skills.</p>
+                    <p>I started web development less than a 2 year ago and I'm currently focused on learning and building my skills.</p>
         
                     <h3>Learning Approach</h3>
                     <p>I'm honest about my current learning process </p>
@@ -306,10 +385,6 @@
                 </div>
                
                 <img src="assets/images/gradient.png" alt="" class="background-img">
-
-                <!-- Photo Circle at Bottom -->
-                <div class="model-box">
-                </div>
             </div>
 
             <div class="card tech" data-aos="fade-left"
@@ -394,7 +469,7 @@
       </div>
 
       <div class="stat-card2">
-        <div class="stat-number2" data-target="1">0</div>
+        <div class="stat-number2" data-target="2">0</div>
         <div class="stat-label2">Years of Experience</div>
       </div>
 
@@ -625,6 +700,7 @@
     </div>
   </div>
 </section>
+
 
 
     <!-- QR SYSTEM PACKAGES-->
@@ -1363,8 +1439,12 @@
     <script>
     AOS.init();
     </script>
-    
+
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
     <script src="app.js"></script>
+
 </body>
 </html>
 
