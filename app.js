@@ -194,6 +194,87 @@ window.addEventListener("scroll", () => {
   }
 });
 
+//Ring Photo
+const nodes = document.querySelectorAll(".logo-node");
+const rotator = document.getElementById("rotator");
+const photoBox = document.getElementById("photoBox");
+const stormOverlay = document.getElementById("stormOverlay");
+const heroCenter = document.getElementById("heroCenter");
+const sound = document.getElementById("lightningSound");
+const label = document.getElementById("label");
+
+function resetSystem() {
+  if (photoBox) photoBox.classList.remove("active");
+  if (rotator) rotator.classList.remove("fast");
+  if (label) {
+    label.style.opacity = "0";
+    label.textContent = "";
+  }
+
+  if (stormOverlay) stormOverlay.classList.remove("active");
+  if (heroCenter) heroCenter.classList.remove("storming");
+
+  if (sound) {
+    sound.pause();
+    sound.currentTime = 0;
+  }
+
+  document.querySelectorAll(".logo-node").forEach((node) => {
+    node.classList.remove("dead");
+  });
+
+  document.querySelectorAll(".arm").forEach((arm) => {
+    arm.classList.remove("dead-arm");
+  });
+}
+
+function activateNode(node, event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  const arm = node.closest(".arm");
+
+  resetSystem();
+
+  if (photoBox) photoBox.classList.add("active");
+  if (rotator) rotator.classList.add("fast");
+  if (stormOverlay) stormOverlay.classList.add("active");
+  if (heroCenter) heroCenter.classList.add("storming");
+
+  node.classList.add("dead");
+  if (arm) arm.classList.add("dead-arm");
+
+  if (label) {
+    label.textContent = node.dataset.name || "";
+    label.style.opacity = "1";
+  }
+
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+  }
+}
+
+nodes.forEach((node) => {
+  node.addEventListener("click", (e) => activateNode(node, e));
+  node.addEventListener("touchstart", (e) => activateNode(node, e), { passive: false });
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".logo-node")) {
+    resetSystem();
+  }
+});
+
+document.addEventListener("touchstart", (e) => {
+  if (!e.target.closest(".logo-node")) {
+    resetSystem();
+  }
+}, { passive: true });
+
+
 //Animated Stats
 const statsSection = document.querySelector("#stats2");
 const counters = document.querySelectorAll(".stat-number2");
@@ -1545,8 +1626,60 @@ function openGmail(e) {
     window.open(gmailUrl, '_blank');
 }
 
+// ==========================
+// Custom cursor + logo trail
+// ==========================
+const cursorDot = document.getElementById("cursorDot");
+const cursorTrail = document.getElementById("cursorTrail");
 
+const trailIcons = [
+  "./assets/images/coding_logo/python.png",
+  "./assets/images/coding_logo/js.png",
+  "./assets/images/coding_logo/react.png",
+  "./assets/images/coding_logo/html.png",
+  "./assets/images/coding_logo/css-3.png",
+  "./assets/images/coding_logo/php.png",
+  "./assets/images/coding_logo/git.png",
+  "./assets/images/coding_logo/nodejs.png"
+];
 
+let lastTrailTime = 0;
+let trailIndex = 0;
 
+if (cursorDot && cursorTrail && window.matchMedia("(pointer: fine)").matches) {
+  console.log("cursor active");
 
+  document.addEventListener("mousemove", (e) => {
+    cursorDot.style.left = `${e.clientX + 10}px`;
+    cursorDot.style.top = `${e.clientY + 10}px`;
 
+    const now = Date.now();
+    if (now - lastTrailTime > 60) {
+      lastTrailTime = now;
+
+      const img = document.createElement("img");
+      img.src = trailIcons[trailIndex];
+      img.className = "trail-logo";
+      img.style.left = `${e.clientX}px`;
+      img.style.top = `${e.clientY}px`;
+
+      cursorTrail.appendChild(img);
+
+      trailIndex = (trailIndex + 1) % trailIcons.length;
+
+      setTimeout(() => {
+        img.remove();
+      }, 800);
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    cursorDot.style.opacity = "0";
+  });
+
+  document.addEventListener("mouseenter", () => {
+    cursorDot.style.opacity = "1";
+  });
+} else {
+  console.log("cursor elements not found or pointer is coarse");
+}
