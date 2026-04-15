@@ -130,6 +130,422 @@ header {
 /* ============================================
    MAIN SECTION (hero with bg video)
    ============================================ */
+.hero-center {
+  min-height: auto;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* full section flash layer */
+.storm-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+}
+
+/* screen flash */
+.storm-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(100, 220, 255, 0.22), transparent 28%),
+    linear-gradient(to bottom, rgba(180, 245, 255, 0.08), rgba(0, 0, 0, 0));
+  opacity: 0;
+}
+
+/* lightning bolts */
+.bolt {
+  position: absolute;
+  width: 6px;
+  height: 260px;
+  opacity: 0;
+  filter: drop-shadow(0 0 10px #7fefff) drop-shadow(0 0 24px #7fefff);
+  background: linear-gradient(to bottom, #dffcff, #7fefff 45%, rgba(127, 239, 255, 0.05));
+  clip-path: polygon(
+    40% 0%, 62% 0%, 50% 18%, 72% 18%, 38% 48%, 56% 48%,
+    30% 74%, 48% 74%, 20% 100%, 42% 78%, 26% 78%, 54% 46%,
+    34% 46%, 64% 16%, 46% 16%
+  );
+}
+
+.bolt-1 {
+  left: 48%;
+  top: 6%;
+  transform: translateX(-50%) rotate(8deg);
+}
+
+.bolt-2 {
+  left: 28%;
+  top: 10%;
+  height: 220px;
+  transform: translateX(-50%) rotate(-18deg);
+}
+
+.bolt-3 {
+  left: 70%;
+  top: 14%;
+  height: 240px;
+  transform: translateX(-50%) rotate(18deg);
+}
+
+.system {
+  position: relative;
+  width: min(82vw, 420px);
+  height: min(82vw, 420px);
+}
+
+/* active state */
+.storm-overlay.active {
+  animation: stormFlash 0.9s linear infinite;
+}
+
+.storm-overlay.active::before {
+  animation: screenPulse 0.9s linear infinite;
+}
+
+.storm-overlay.active .bolt-1 {
+  animation: boltStrike1 0.9s linear infinite;
+}
+
+.storm-overlay.active .bolt-2 {
+  animation: boltStrike2 1.1s linear infinite;
+}
+
+.storm-overlay.active .bolt-3 {
+  animation: boltStrike3 1.3s linear infinite;
+}
+
+/* optional shake */
+.hero-center.storming {
+  animation: stormShake 0.18s linear infinite;
+}
+
+@keyframes stormFlash {
+  0%, 100% { opacity: 0; }
+  8% { opacity: 1; }
+  11% { opacity: 0; }
+  16% { opacity: 1; }
+  22% { opacity: 0; }
+  55% { opacity: 0; }
+  60% { opacity: 1; }
+  63% { opacity: 0; }
+}
+
+@keyframes screenPulse {
+  0%, 100% { opacity: 0; }
+  8% { opacity: 0.9; }
+  11% { opacity: 0; }
+  16% { opacity: 0.55; }
+  22% { opacity: 0; }
+  60% { opacity: 0.8; }
+  63% { opacity: 0; }
+}
+
+@keyframes boltStrike1 {
+  0%, 100% { opacity: 0; }
+  8% { opacity: 1; }
+  11% { opacity: 0; }
+  16% { opacity: 0.95; }
+  21% { opacity: 0; }
+  60% { opacity: 1; }
+  63% { opacity: 0; }
+}
+
+@keyframes boltStrike2 {
+  0%, 100% { opacity: 0; }
+  20% { opacity: 0; }
+  24% { opacity: 1; }
+  28% { opacity: 0; }
+  68% { opacity: 1; }
+  72% { opacity: 0; }
+}
+
+@keyframes boltStrike3 {
+  0%, 100% { opacity: 0; }
+  34% { opacity: 0; }
+  40% { opacity: 1; }
+  44% { opacity: 0; }
+  78% { opacity: 1; }
+  82% { opacity: 0; }
+}
+
+@keyframes stormShake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, -0.5px); }
+  50% { transform: translate(-0.5px, 0.5px); }
+  75% { transform: translate(0.5px, 0.5px); }
+  100% { transform: translate(0, 0); }
+}
+
+.smoke-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.smoke {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(0,255,255,0.25), transparent 70%);
+  filter: blur(25px);
+  opacity: 0;
+}
+
+.photo-box.active .smoke {
+  opacity: 1;
+  animation: smokeMove 4s ease-in-out infinite;
+}
+
+.s1 { left: -20px; top: 20px; }
+.s2 { right: -30px; top: 40px; animation-delay: 1s; }
+.s3 { bottom: -20px; left: 30px; animation-delay: 2s; }
+
+@keyframes smokeMove {
+  0% { transform: translateY(0) scale(1); opacity: 0.2; }
+  50% { transform: translateY(-30px) scale(1.2); opacity: 0.4; }
+  100% { transform: translateY(-60px) scale(1.4); opacity: 0; }
+}
+
+.photo-box {
+  position: absolute;
+  width: clamp(150px, 22vw, 230px);
+  height: clamp(150px, 22vw, 230px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+}
+
+.photo.glow {
+  opacity: 0;
+  filter: drop-shadow(0 0 14px rgba(0, 220, 255, 0.9))
+          drop-shadow(0 0 34px rgba(0, 220, 255, 0.45));
+}
+
+.photo-box.active .normal {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.photo-box.active .glow {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* rotator */
+.rotator {
+  position: absolute;
+  inset: 0;
+  animation: mainSpin 18s linear infinite;
+  transform-origin: center center;
+}
+
+.rotator.fast {
+  animation-duration: 3.8s;
+}
+
+/* one full branch */
+.arm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+}
+
+/* spoke line */
+.spoke {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 150px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 230, 255, 0.95),
+    rgba(0, 230, 255, 0.28)
+  );
+  box-shadow: 0 0 10px rgba(0, 230, 255, 0.35);
+  transform-origin: top center;
+}
+
+/* logo at end of line */
+.logo-node {
+  position: absolute;
+  left: 50%;
+  top: 150px;
+  width: 52px;
+  height: 52px;
+  transform: translate(-50%, -50%);
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 50;
+  pointer-events: auto;
+  touch-action: manipulation;
+  transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+}
+
+.logo-node img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.logo-node:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: drop-shadow(0 0 12px rgba(0, 230, 255, 0.5));
+}
+
+/* distribute around the center like a wheel */
+.a1 { transform: rotate(0deg); }
+.a2 { transform: rotate(45deg); }
+.a3 { transform: rotate(90deg); }
+.a4 { transform: rotate(135deg); }
+.a5 { transform: rotate(180deg); }
+.a6 { transform: rotate(225deg); }
+.a7 { transform: rotate(270deg); }
+.a8 { transform: rotate(315deg); }
+
+/* clicked dead logo effect */
+.logo-node.dead {
+  animation: deadFall 1s ease forwards;
+  pointer-events: none;
+}
+
+.logo-node.dead + .nothing {
+  display: none;
+}
+
+/* lightning */
+.lightning {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 240px;
+  height: 240px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 15;
+  background:
+    radial-gradient(circle, rgba(0, 230, 255, 0.28) 0%, rgba(0, 230, 255, 0.08) 38%, rgba(0, 230, 255, 0) 70%);
+}
+
+/* label */
+.label {
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  transform: translateX(-50%);
+  color: #8befff;
+  background: rgba(5, 12, 25, 0.72);
+  border: 1px solid rgba(0, 230, 255, 0.3);
+  padding: 7px 14px;
+  border-radius: 999px;
+  opacity: 0;
+  z-index: 30;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* if one node is dead, hide its spoke too */
+.arm.dead-arm .spoke {
+  opacity: 0.08;
+}
+
+/* animations */
+@keyframes mainSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes deadFall {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-45%, -40%) rotate(28deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(20px, 160px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+@keyframes electricPulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.92);
+    filter: brightness(1);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+    filter: brightness(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.16);
+    filter: brightness(1);
+  }
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  @media (max-width: 768px) {
+  .hero-center {
+    height: 340px;
+    padding: 10px 10px 0;
+  }
+
+  .system {
+    width: min(86vw, 320px);
+    height: min(86vw, 320px);
+  }
+
+  .spoke {
+    height: 102px;
+  }
+
+  .logo-node {
+    top: 102px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .photo-box {
+    width: 130px;
+    height: 130px;
+  }
+  }
+}    
+   
 main {
     position: relative;
     overflow: hidden;
@@ -274,6 +690,7 @@ main h2 {
     object-position: center center;
     pointer-events: none;
 }
+
 
 .yt-overlay {
     position: absolute;
@@ -678,33 +1095,6 @@ main h2 {
     display: none;
 }
 
-/* Circular photo styling */
-.model-box::before {
-    content: '';
-    position: absolute;
-    background: url('assets/images/my-photo.png') center/cover;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 4px solid #76b0ab;
-    box-shadow: 
-        0 0 30px rgba(118, 176, 171, 0.5),
-        inset 0 0 20px rgba(0, 0, 0, 0.3);
-    animation: photoGlow 3s ease-in-out infinite;
-}
-
-@keyframes photoGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 30px rgba(118, 176, 171, 0.5),
-            inset 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-    50% {
-        box-shadow: 
-            0 0 50px rgba(118, 176, 171, 0.8),
-            inset 0 0 30px rgba(0, 0, 0, 0.2);
-    }
-}
   
 .bento-grid .skills-group {
     position: absolute;
@@ -2369,4 +2759,59 @@ footer {
 .copy-toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
+
+@media (pointer: fine) {
+  .cursor-dot {
+    position: fixed;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #43e8ff;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 0 12px rgba(67, 232, 255, 0.95),
+      0 0 26px rgba(67, 232, 255, 0.6),
+      0 0 42px rgba(67, 232, 255, 0.35);
+    pointer-events: none;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    display: block;
+  }
+
+  .trail-logo {
+    position: fixed;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 999998;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    animation: trailFade 0.8s ease forwards;
+    filter: drop-shadow(0 0 8px rgba(77, 234, 255, 0.35));
+  }
+
+  @keyframes trailFade {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -80%) scale(0.7) rotate(18deg);
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-trail {
+    display: none !important;
+  }
 }
